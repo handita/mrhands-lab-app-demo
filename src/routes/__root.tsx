@@ -74,26 +74,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mrhands Lab App Demo — Presensi & Monitoring Karyawan" },
+      { title: "Mrhands Lab App Starter — Blank Starter Template" },
       {
         name: "description",
         content:
-          "Starter template modern aplikasi karyawan untuk presensi mandiri, monitoring kehadiran real-time, dan dashboard analitik berbasis TanStack Start & Supabase.",
+          "Blank starter template modern berbasis TanStack Start, Tailwind CSS v4, SQLite Zero-Config, dan Supabase Dual-Mode Architecture.",
       },
       { name: "author", content: "Mrhands Lab" },
-      { property: "og:title", content: "Mrhands Lab App Demo — Presensi & Monitoring Karyawan" },
+      { property: "og:title", content: "Mrhands Lab App Starter — Blank Starter Template" },
       {
         property: "og:description",
         content:
-          "Presensi kerja online, monitoring kehadiran harian staf, pengajuan cuti, dan dashboard analitik terpadu.",
+          "Starter template bersih siap pakai dari nol untuk membangun aplikasi web modern.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Mrhands Lab App Demo" },
+      { name: "twitter:title", content: "Mrhands Lab App Starter" },
       {
         name: "twitter:description",
         content:
-          "Starter template aplikasi karyawan untuk presensi dan monitoring tim.",
+          "Blank starter template modern untuk membangun aplikasi web full-stack.",
       },
     ],
     links: [

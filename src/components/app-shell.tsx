@@ -3,18 +3,12 @@ import { ReactNode, useState } from "react";
 import {
   LayoutDashboard,
   Users,
-  CalendarCheck,
-  CalendarDays,
-  Banknote,
-  Megaphone,
-  UserCheck,
   LogOut,
   Menu,
   ShieldCheck,
-  FileSpreadsheet,
   Building2,
   RefreshCw,
-  BadgeCheck,
+  FolderOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -33,22 +27,11 @@ type NavItem = {
 };
 
 const memberNav: NavItem[] = [
-  { to: "/dashboard", label: "Beranda & Presensi", icon: LayoutDashboard, exact: true },
-  { to: "/dashboard/attendance", label: "Riwayat Presensi", icon: CalendarCheck },
-  { to: "/dashboard/leaves", label: "Pengajuan Cuti", icon: CalendarDays },
-  { to: "/dashboard/payroll", label: "Slip Gaji Saya", icon: Banknote },
-  { to: "/dashboard/profile", label: "Profil Saya", icon: UserCheck },
-  { to: "/transparency", label: "Direktori Tim", icon: Building2 },
+  { to: "/dashboard", label: "Beranda Pengguna", icon: LayoutDashboard, exact: true },
 ];
 
 const adminNav: NavItem[] = [
-  { to: "/admin", label: "Dashboard Monitoring", icon: LayoutDashboard, exact: true },
-  { to: "/admin/attendance", label: "Monitoring Presensi", icon: CalendarCheck },
-  { to: "/admin/employees", label: "Data Karyawan", icon: Users },
-  { to: "/admin/leaves", label: "Persetujuan Cuti", icon: CalendarDays },
-  { to: "/admin/payroll", label: "Penggajian & Slip", icon: Banknote },
-  { to: "/admin/announcements", label: "Pengumuman", icon: Megaphone },
-  { to: "/transparency", label: "Statistik Tim", icon: Building2 },
+  { to: "/admin", label: "Dashboard Admin", icon: LayoutDashboard, exact: true },
 ];
 
 export function AppShell({
@@ -71,7 +54,7 @@ export function AppShell({
     try {
       await loginAsDemo(targetRole);
       toast.success(
-        `Beralih mode ke: ${targetRole === "admin" ? "HR Admin (Manajemen)" : "Karyawan (ESS)"}`
+        `Beralih mode ke: ${targetRole === "admin" ? "Admin" : "Member"}`
       );
       if (targetRole === "admin") {
         await navigate({ to: "/admin" });
@@ -141,7 +124,7 @@ export function AppShell({
                 <RefreshCw className="size-3.5" />
                 <span className="hidden md:inline">Ganti Role:</span>
                 <span className="font-semibold">
-                  {variant === "admin" ? "Ke Karyawan" : "Ke HR Admin"}
+                  {variant === "admin" ? "Ke Member" : "Ke Admin"}
                 </span>
               </Button>
 
@@ -161,7 +144,7 @@ export function AppShell({
                   {userName}
                 </span>
                 <span className="text-[10px] text-muted-foreground capitalize">
-                  {variant === "admin" ? "HR Administrator" : "Karyawan"}
+                  {variant === "admin" ? "Administrator" : "Member"}
                 </span>
               </div>
 
@@ -210,13 +193,13 @@ function SidebarContent({
       <div className="px-4 py-3 border-b bg-muted/20">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold tracking-wider uppercase text-muted-foreground">
-            {variant === "admin" ? "Modul Manajemen HR" : "Portal Mandiri Karyawan"}
+            {variant === "admin" ? "Panel Administrasi" : "Portal Pengguna"}
           </span>
           <Badge
             variant={variant === "admin" ? "default" : "secondary"}
             className="text-[10px] h-5 px-1.5"
           >
-            {variant === "admin" ? "Admin HR" : "Karyawan"}
+            {variant === "admin" ? "Admin" : "Member"}
           </Badge>
         </div>
       </div>
@@ -282,16 +265,16 @@ export function BrandMark() {
   return (
     <Link to="/" className="flex items-center gap-2.5 group">
       <div className="size-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-sm group-hover:scale-105 transition-transform">
-        <Users className="size-4.5" />
+        <Building2 className="size-4.5" />
       </div>
       <div className="flex flex-col">
         <span className="font-bold text-sm tracking-tight text-foreground flex items-center gap-1.5">
           Mrhands Lab
           <span className="text-[10px] bg-primary/10 text-primary font-semibold px-1.5 py-0.2 rounded">
-            App Demo
+            Starter
           </span>
         </span>
-        <span className="text-[10px] text-muted-foreground">Presensi & Monitoring</span>
+        <span className="text-[10px] text-muted-foreground">App Starter Template</span>
       </div>
     </Link>
   );

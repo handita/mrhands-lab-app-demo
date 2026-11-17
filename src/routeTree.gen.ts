@@ -13,18 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as TransparencyRouteImport } from './routes/transparency'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
-import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
-import { Route as AdminEmployeesRouteImport } from './routes/admin.employees'
-import { Route as AdminLeavesRouteImport } from './routes/admin.leaves'
-import { Route as AdminPayrollRouteImport } from './routes/admin.payroll'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
-import { Route as DashboardAttendanceRouteImport } from './routes/dashboard.attendance'
-import { Route as DashboardLeavesRouteImport } from './routes/dashboard.leaves'
-import { Route as DashboardPayrollRouteImport } from './routes/dashboard.payroll'
-import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,64 +36,14 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TransparencyRoute = TransparencyRouteImport.update({
-  id: '/transparency',
-  path: '/transparency',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
-  id: '/announcements',
-  path: '/announcements',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminAttendanceRoute = AdminAttendanceRouteImport.update({
-  id: '/attendance',
-  path: '/attendance',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
-  id: '/employees',
-  path: '/employees',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminLeavesRoute = AdminLeavesRouteImport.update({
-  id: '/leaves',
-  path: '/leaves',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPayrollRoute = AdminPayrollRouteImport.update({
-  id: '/payroll',
-  path: '/payroll',
-  getParentRoute: () => AdminRoute,
-} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardAttendanceRoute = DashboardAttendanceRouteImport.update({
-  id: '/attendance',
-  path: '/attendance',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardLeavesRoute = DashboardLeavesRouteImport.update({
-  id: '/leaves',
-  path: '/leaves',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardPayrollRoute = DashboardPayrollRouteImport.update({
-  id: '/payroll',
-  path: '/payroll',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProfileRoute = DashboardProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -112,32 +52,12 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
-  '/transparency': typeof TransparencyRoute
-  '/admin/announcements': typeof AdminAnnouncementsRoute
-  '/admin/attendance': typeof AdminAttendanceRoute
-  '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/leaves': typeof AdminLeavesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/dashboard/attendance': typeof DashboardAttendanceRoute
-  '/dashboard/leaves': typeof DashboardLeavesRoute
-  '/dashboard/payroll': typeof DashboardPayrollRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/transparency': typeof TransparencyRoute
-  '/admin/announcements': typeof AdminAnnouncementsRoute
-  '/admin/attendance': typeof AdminAttendanceRoute
-  '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/leaves': typeof AdminLeavesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/dashboard/attendance': typeof DashboardAttendanceRoute
-  '/dashboard/leaves': typeof DashboardLeavesRoute
-  '/dashboard/payroll': typeof DashboardPayrollRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
   '/admin': typeof AdminIndexRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -147,70 +67,21 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
-  '/transparency': typeof TransparencyRoute
-  '/admin/announcements': typeof AdminAnnouncementsRoute
-  '/admin/attendance': typeof AdminAttendanceRoute
-  '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/leaves': typeof AdminLeavesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/dashboard/attendance': typeof DashboardAttendanceRoute
-  '/dashboard/leaves': typeof DashboardLeavesRoute
-  '/dashboard/payroll': typeof DashboardPayrollRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/admin'
-    | '/dashboard'
-    | '/login'
-    | '/transparency'
-    | '/admin/announcements'
-    | '/admin/attendance'
-    | '/admin/employees'
-    | '/admin/leaves'
-    | '/admin/payroll'
-    | '/dashboard/attendance'
-    | '/dashboard/leaves'
-    | '/dashboard/payroll'
-    | '/dashboard/profile'
-    | '/admin/'
-    | '/dashboard/'
+    '/' | '/admin' | '/dashboard' | '/login' | '/admin/' | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/login'
-    | '/transparency'
-    | '/admin/announcements'
-    | '/admin/attendance'
-    | '/admin/employees'
-    | '/admin/leaves'
-    | '/admin/payroll'
-    | '/dashboard/attendance'
-    | '/dashboard/leaves'
-    | '/dashboard/payroll'
-    | '/dashboard/profile'
-    | '/admin'
-    | '/dashboard'
+  to: '/' | '/login' | '/admin' | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/dashboard'
     | '/login'
-    | '/transparency'
-    | '/admin/announcements'
-    | '/admin/attendance'
-    | '/admin/employees'
-    | '/admin/leaves'
-    | '/admin/payroll'
-    | '/dashboard/attendance'
-    | '/dashboard/leaves'
-    | '/dashboard/payroll'
-    | '/dashboard/profile'
     | '/admin/'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -220,7 +91,6 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
-  TransparencyRoute: typeof TransparencyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,53 +123,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/transparency': {
-      id: '/transparency'
-      path: '/transparency'
-      fullPath: '/transparency'
-      preLoaderRoute: typeof TransparencyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/announcements': {
-      id: '/admin/announcements'
-      path: '/announcements'
-      fullPath: '/admin/announcements'
-      preLoaderRoute: typeof AdminAnnouncementsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/attendance': {
-      id: '/admin/attendance'
-      path: '/attendance'
-      fullPath: '/admin/attendance'
-      preLoaderRoute: typeof AdminAttendanceRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/employees': {
-      id: '/admin/employees'
-      path: '/employees'
-      fullPath: '/admin/employees'
-      preLoaderRoute: typeof AdminEmployeesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/leaves': {
-      id: '/admin/leaves'
-      path: '/leaves'
-      fullPath: '/admin/leaves'
-      preLoaderRoute: typeof AdminLeavesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/payroll': {
-      id: '/admin/payroll'
-      path: '/payroll'
-      fullPath: '/admin/payroll'
-      preLoaderRoute: typeof AdminPayrollRouteImport
       parentRoute: typeof AdminRoute
     }
     '/dashboard/': {
@@ -309,70 +137,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/attendance': {
-      id: '/dashboard/attendance'
-      path: '/attendance'
-      fullPath: '/dashboard/attendance'
-      preLoaderRoute: typeof DashboardAttendanceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/leaves': {
-      id: '/dashboard/leaves'
-      path: '/leaves'
-      fullPath: '/dashboard/leaves'
-      preLoaderRoute: typeof DashboardLeavesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/payroll': {
-      id: '/dashboard/payroll'
-      path: '/payroll'
-      fullPath: '/dashboard/payroll'
-      preLoaderRoute: typeof DashboardPayrollRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/profile': {
-      id: '/dashboard/profile'
-      path: '/profile'
-      fullPath: '/dashboard/profile'
-      preLoaderRoute: typeof DashboardProfileRouteImport
-      parentRoute: typeof DashboardRoute
-    }
   }
 }
 
 interface AdminRouteChildren {
-  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
-  AdminAttendanceRoute: typeof AdminAttendanceRoute
-  AdminEmployeesRoute: typeof AdminEmployeesRoute
-  AdminLeavesRoute: typeof AdminLeavesRoute
-  AdminPayrollRoute: typeof AdminPayrollRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
-  AdminAttendanceRoute: AdminAttendanceRoute,
-  AdminEmployeesRoute: AdminEmployeesRoute,
-  AdminLeavesRoute: AdminLeavesRoute,
-  AdminPayrollRoute: AdminPayrollRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface DashboardRouteChildren {
-  DashboardAttendanceRoute: typeof DashboardAttendanceRoute
-  DashboardLeavesRoute: typeof DashboardLeavesRoute
-  DashboardPayrollRoute: typeof DashboardPayrollRoute
-  DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardAttendanceRoute: DashboardAttendanceRoute,
-  DashboardLeavesRoute: DashboardLeavesRoute,
-  DashboardPayrollRoute: DashboardPayrollRoute,
-  DashboardProfileRoute: DashboardProfileRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -385,7 +167,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
-  TransparencyRoute: TransparencyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,174 +1,128 @@
-# 🏢 Mrhands Lab App Demo — Presensi & Monitoring Karyawan
+# 🚀 Mrhands Lab App Starter — Blank Starter Template
 
-> **Starter Kit Aplikasi Web Enterprise Modern** dari nol berbasis **TanStack Start (Vite + React 19)**, **Tailwind CSS v4 (OKLCH)**, **SQLite (Local Zero-Config)**, **Supabase PostgreSQL (Cloud)**, **Recharts**, dan **Radix UI**.
+> **Blank Starter Template Modern** dari nol berbasis **TanStack Start (Vite + React 19)**, **TanStack Router (File-Based)**, **Tailwind CSS v4 (OKLCH)**, **SQLite Zero-Config (Mode 1)**, **Supabase Cloud PostgreSQL (Mode 2)**, dan **Recharts**.
 >
-> Proyek ini dirancang sebagai starter template bersih (*clean starter from scratch*) tanpa sisa dependensi lama, siap dijalankan langsung untuk mendemokan sistem presensi mandiri dan monitoring kehadiran tim.
+> 📌 **Branch ini (`starter`) adalah fondasi bersih tanpa fitur bisnis spesifik**, dirancang khusus agar Anda atau AI Coding Agent (seperti **Antigravity**, **Cursor**, atau **Claude Code**) dapat membangun aplikasi impian dari kosongan sesuai spesifikasi yang ditentukan.
 
 ---
 
-## 📸 Preview Tangkapan Layar Aplikasi (Live Demo Screenshots)
+## 📋 Dokumen PRD: Membangun Aplikasi HR Presensi & Monitoring Karyawan
 
-### 1. Dashboard Eksekutif & Analitik Kehadiran (Admin Portal)
-![Dashboard Monitoring Admin](public/screenshots/03-admin-dashboard.png)
-*Visualisasi KPI kehadiran harian, tren 6 bulan Recharts, dan komposisi staf per departemen.*
+Ingin membangun aplikasi HR lengkap dari template starter ini?
+Seluruh spesifikasi teknis, model data relasional, desain UI/UX, dan panduan eksekusi langkah demi langkah telah disiapkan di:
 
----
+👉 **[Buka Dokumen PRD Lengkap (PRD.md)](PRD.md)**
 
-### 2. Live Monitoring Presensi Staf Real-Time (HR & Manajemen)
-![Monitoring Presensi Staf](public/screenshots/04-attendance-monitoring.png)
-*Tabel pemantauan kedatangan karyawan hari ini, deteksi toleransi keterlambatan, filter status (Hadir, Terlambat, Izin, Sakit, Cuti, Alpa), dan tombol export CSV.*
+Cukup berikan instruksi berikut kepada AI Agent Anda:
+> *"Tolong baca `PRD.md` dan eksekusi pembangunan aplikasi HR Presensi & Monitoring Karyawan (`Mrhands Lab App Demo`) langkah demi langkah sampai selesai."*
 
----
-
-### 3. Presensi Mandiri Karyawan & Jam Live WIB (*Employee Self-Service / ESS*)
-![Presensi Mandiri Karyawan](public/screenshots/05-employee-attendance.png)
-*Fitur Check-in dan Check-out mandiri dengan sinkronisasi jam digital WIB, indikator lokasi WFO/WFH, dan riwayat absensi bulanan.*
+*(Untuk melihat versi hasil jadi yang sudah lengkap dan siap deploy, Anda dapat beralih ke branch `main`).*
 
 ---
 
-### 4. Beranda Karyawan & Ringkasan Kompensasi
-![Beranda Karyawan](public/screenshots/07-employee-dashboard.png)
-*Portal mandiri pegawai untuk memantau kehadiran hari ini, status permohonan cuti, slip gaji digital, dan pengumuman kantor.*
+## 🗄️ Arsitektur Dual-Mode Database (SQLite & Supabase)
 
----
-
-### 5. Halaman Utama / Landing Page & Akses Demo 1-Klik
-| Landing Page Starter | Halaman Masuk & 1-Klik Demo |
-| :---: | :---: |
-| ![Landing Page](public/screenshots/01-landing-page.png) | ![Login Page](public/screenshots/02-login-page.png) |
-
----
-
-## 🗄️ Dua Mode Database: SQLite & Supabase
-
-Aplikasi ini didesain dengan arsitektur **Dual-Mode Data Architecture** agar siapa pun dapat langsung mencoba aplikasi tanpa hambatan instalasi:
+Starter template ini menerapkan arsitektur **Dual-Mode Data Architecture** agar aplikasi selalu dapat berjalan interaktif tanpa konfigurasi manual:
 
 ```mermaid
 flowchart TD
-    App[Mrhands Lab App Demo] --> Check{Ada Kredensial Supabase?}
-    Check -->|Tidak Ada - Default| SQLite[Mode 1: SQLite Local Database]
+    App[Mrhands Lab App Starter] --> Check{Ada Kredensial Supabase?}
+    Check -->|Tidak Ada - Default| SQLite[Mode 1: SQLite Zero-Config Local]
     Check -->|Ada di .env.local| Supabase[Mode 2: Supabase Cloud PostgreSQL]
     SQLite --> LocalStore[Zero-Config / Siap Pakai Instan]
     Supabase --> CloudDB[Production Cloud Database]
 ```
 
-### 🟢 Mode 1: SQLite Database (Local Zero-Config — Default)
-- **Langsung Aktif**: Tidak perlu menginstal Docker, PostgreSQL, atau registrasi akun pihak ketiga.
-- **Skema SQL Standar**: Menggunakan skema DDL SQLite lengkap di [`sqlite/schema.sql`](sqlite/schema.sql).
-- **Fitur Lengkap**: Mendukung query data pegawai, penambahan pegawai baru, presensi masuk/pulang, pencatatan keterlambatan, dan pengajuan cuti secara persisten.
-- **Indikator**: Header menampilkan badge hijau `Mode: SQLite (Local Zero-Config)`.
-
-### 🔵 Mode 2: Supabase (Cloud PostgreSQL)
-- **Untuk Production**: Terhubung ke database relasional PostgreSQL cloud Supabase.
-- **Aktivasi Mudah**: Cukup isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_ANON_KEY` di `.env.local`.
-- **Indikator**: Header otomatis beralih menampilkan badge biru `Mode: Supabase (cloud)`.
+1. **Mode 1: SQLite Local (Default)**:
+   - Langsung aktif tanpa konfigurasi.
+   - Menggunakan model tabel SQLite di [`sqlite/schema.sql`](sqlite/schema.sql) dan browser persistence di `src/lib/sqlite.ts`.
+2. **Mode 2: Supabase Cloud PostgreSQL**:
+   - Cukup salin `.env.example` ke `.env.local` dan isi URL & Key Supabase Anda.
+   - Menggunakan skema DDL di [`supabase/schema.sql`](supabase/schema.sql) dan seed data di [`supabase/seed.sql`](supabase/seed.sql).
 
 ---
 
-## ⚡ Cara Menjalankan Aplikasi (Quick Start)
+## ⚡ Cara Menjalankan Starter Template
 
-### 1. Pasang Dependensi
+### 1. Prasyarat
+- **Node.js** v20+ atau v22+
+- **Yarn** atau **npm**
+
+### 2. Instalasi Dependensi
 ```bash
-# Menggunakan npm atau yarn
-npm install
-# atau
 yarn install
+# atau
+npm install
 ```
 
-### 2. Jalankan Server Development
+### 3. Menjalankan Server Development
 ```bash
 npm run dev
 ```
+Buka browser pada alamat: **`http://localhost:3000`**
 
-Buka peramban Anda di: **`http://localhost:8081`** (atau port yang tertera di terminal).
-
----
-
-## 🔑 Akun Demo 1-Klik
-
-Pada halaman `/login`, Anda tidak perlu mengetik kredensial manual. Cukup klik tombol demo:
-
-| Akun Demo | Peran (*Role*) | NIP | PIN Default | Hak Akses |
-| :--- | :--- | :--- | :--- | :--- |
-| **Dr. Hendra Gunawan** | HR Administrator | `198801012010121001` | `000000` | `/admin` (Monitoring & KPI) |
-| **Nurul Aini, S.Psi.** | HR Administrator | `199307142017082007` | `000000` | `/admin` (Talent & Cuti) |
-| **Budi Santoso, S.Kom.** | Karyawan (Lead Eng.) | `199003152015021002` | `123456` | `/dashboard` (Presensi Mandiri) |
-| **Siti Rahmawati, S.E.** | Karyawan (Finance) | `199208202017012003` | `123456` | `/dashboard` (Presensi Mandiri) |
+### 4. Akun Demo Bawaan (1-Click Login)
+Halaman `/login` menyediakan tombol login instan 1-klik:
+- **Administrator**:
+  - Username: `admin`
+  - PIN / Password: `123456`
+  - Route: `/admin`
+- **Member / Pengguna**:
+  - Username: `member`
+  - PIN / Password: `123456`
+  - Route: `/dashboard`
 
 ---
 
-## 📁 Struktur Direktori Bersih
+## 📂 Struktur Direktori Proyek
 
-```text
-├── src/
-│   ├── components/            # Komponen antarmuka & layout shell
-│   │   ├── app-shell.tsx      # Sidebar, navbar, switcher peran, badge mode DB
-│   │   ├── page-header.tsx    # Header judul halaman
-│   │   └── ui/                # Primitif UI (Radix & Tailwind v4)
-│   ├── lib/                   # Utilitas & Engine Database
-│   │   ├── sqlite.ts          # Engine SQLite Local Zero-Config
-│   │   ├── supabase.ts        # Client Supabase & pendeteksi mode
-│   │   ├── employee-data.ts   # Tipe TypeScript & seed data awal
-│   │   └── utils.ts           # Helper styling (cn)
-│   ├── routes/                # File-based Routing (TanStack Router)
-│   │   ├── __root.tsx         # Root Shell & Global Providers
-│   │   ├── index.tsx          # Landing page
-│   │   ├── login.tsx          # Halaman masuk dengan demo 1-klik
-│   │   ├── admin.index.tsx    # Executive KPI Dashboard
-│   │   ├── admin.attendance.tsx # Live Monitoring Presensi Staf
-│   │   ├── admin.employees.tsx  # CRUD Manajemen Data Pegawai
-│   │   ├── admin.leaves.tsx     # Persetujuan Cuti & Izin
-│   │   ├── dashboard.index.tsx      # Beranda Karyawan
-│   │   ├── dashboard.attendance.tsx # Presensi Mandiri (Check-in/out)
-│   │   └── transparency.tsx   # Direktori Tim Publik
-│   └── services/              # Service Layer Dual-Mode
-│       ├── auth-service.ts    # Otentikasi NIP/PIN
-│       └── employee-service.ts# Operasi CRUD (SQLite / Supabase)
+```
+mrhands-lab-app-demo/ (branch: starter)
+├── PRD.md                       # Blueprint lengkap & panduan AI Agent untuk membangun aplikasi HR
+├── AGENTS.md                    # Aturan coding & arsitektur untuk AI coding agents
 ├── sqlite/
-│   └── schema.sql             # Skema DDL & Seed Data SQLite
+│   └── schema.sql               # Skema DDL & seed data SQLite starter
 ├── supabase/
-│   ├── schema.sql             # Skema DDL PostgreSQL Supabase
-│   ├── seed.sql               # Seed Data Supabase
-│   └── README.md              # Panduan Setup Cloud
-├── public/screenshots/        # Dokumentasi visual untuk GitHub
-└── README.md                  # Dokumentasi proyek utama
+│   ├── schema.sql               # Skema PostgreSQL DDL & RLS Supabase
+│   └── seed.sql                 # Data awal Supabase
+├── src/
+│   ├── components/
+│   │   ├── app-shell.tsx        # Shell layout navigasi & header pengguna
+│   │   ├── page-header.tsx      # Komponen header judul & deskripsi halaman
+│   │   └── ui/                  # Komponen UI Radix & Tailwind v4
+│   ├── lib/
+│   │   ├── starter-data.ts      # Tipe data generic, mock data, & formatters
+│   │   ├── sqlite.ts            # Engine SQLite zero-config local
+│   │   ├── supabase.ts          # Supabase client & deteksi kredensial
+│   │   └── utils.ts             # Helper className cn()
+│   ├── routes/
+│   │   ├── __root.tsx           # Root router layout & providers
+│   │   ├── index.tsx            # Landing page publik
+│   │   ├── login.tsx            # Halaman login manual & 1-klik demo
+│   │   ├── admin.tsx            # Layout proteksi Admin
+│   │   ├── admin.index.tsx      # Dashboard ringkasan Administrator & Recharts
+│   │   ├── dashboard.tsx        # Layout proteksi Member
+│   │   └── dashboard.index.tsx  # Portal pengguna / member
+│   ├── services/
+│   │   ├── auth-service.ts      # Layanan autentikasi & session handling
+│   │   └── starter-service.ts   # Dual-mode service (SQLite & Supabase)
+│   ├── store/
+│   │   └── session-store.ts     # Manajemen session in-memory & localStorage
+│   └── styles.css               # Tema warna modern OKLCH Tailwind CSS v4
 ```
 
 ---
 
-## 🛠️ Panduan Menambah Fitur Baru dari Nol
+## 🛠️ Perintah Berguna
 
-### 1. Menambah Route Halaman Baru
-Buat file di `src/routes/admin.nama-fitur.tsx`:
-```tsx
-import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/admin/nama-fitur")({
-  head: () => ({ meta: [{ title: "Fitur Baru · Mrhands Lab App Demo" }] }),
-  component: FiturBaruPage,
-});
-
-function FiturBaruPage() {
-  return <div className="p-4">Fitur Baru Siap Dikembangkan</div>;
-}
-```
-
-### 2. Mengakses Database Dual-Mode
-Semua fungsi mutasi di `src/services/employee-service.ts` otomatis mendukung mode ganda:
-```typescript
-export async function getContohData() {
-  if (isSupabaseConfigured && supabase) {
-    // Mode 2: Query ke Supabase Cloud
-    const { data } = await supabase.from("tabel").select("*");
-    if (data) return data;
-  }
-  // Mode 1: Query ke SQLite Local Engine
-  return sqliteDB.employees.select();
-}
-```
+| Perintah | Deskripsi |
+| :--- | :--- |
+| `npm run dev` | Menjalankan local development server dengan hot reload |
+| `npm run build` | Melakukan build produksi client dan SSR bundling |
+| `npx tsc --noEmit` | Memeriksa seluruh type safety TypeScript (0 errors) |
 
 ---
 
-## 📜 Lisensi & Atribusi
+## 📄 Lisensi
 
-Proyek ini dikembangkan oleh **Mrhands Lab** sebagai starter kit aplikasi presensi & monitoring karyawan. Bebas dimodifikasi untuk pengembangan proyek mandiri maupun enterprise.
+Mrhands Lab Open Template. Bebas digunakan untuk prototipe, aplikasi internal perusahaan, dan proyek turunan.

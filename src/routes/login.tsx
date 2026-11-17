@@ -5,35 +5,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BrandMark } from "@/components/app-shell";
-import {
-  ShieldCheck,
-  ArrowRight,
-  KeyRound,
-  UserCheck,
-  Building2,
-  Sparkles,
-  Briefcase,
-  User,
-} from "lucide-react";
-import { loginWithNipPin, loginAsDemo } from "@/services/auth-service";
+import { ShieldCheck, ArrowRight, Sparkles, User } from "lucide-react";
+import { loginWithUsernamePin, loginAsDemo } from "@/services/auth-service";
 import { toast } from "sonner";
-import { isSupabaseConfigured } from "@/lib/supabase";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Masuk · Mrhands Lab App Demo" }] }),
+  head: () => ({ meta: [{ title: "Masuk · Mrhands Lab App Starter" }] }),
   component: LoginPage,
 });
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [nip, setNip] = useState("");
+  const [username, setUsername] = useState("");
   const [pin, setPin] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleManualLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!nip.trim()) {
-      toast.error("Silakan masukkan NIP atau Email");
+    if (!username.trim()) {
+      toast.error("Silakan masukkan Username atau Email");
       return;
     }
     if (!pin.trim()) {
@@ -43,7 +33,7 @@ function LoginPage() {
 
     setLoading(true);
     try {
-      const session = await loginWithNipPin(nip.trim(), pin.trim());
+      const session = await loginWithUsernamePin(username.trim(), pin.trim());
       toast.success(`Selamat datang kembali, ${session.user.name}!`);
       if (session.user.role === "admin") {
         await navigate({ to: "/admin" });
@@ -51,25 +41,25 @@ function LoginPage() {
         await navigate({ to: "/dashboard" });
       }
     } catch (err: any) {
-      toast.error(err?.message || "Gagal masuk. Periksa kembali NIP dan PIN Anda.");
+      toast.error(err?.message || "Gagal masuk. Periksa kembali username dan PIN Anda.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleQuickDemo = async (role: "admin" | "employee", specificNip?: string) => {
+  const handleQuickDemo = async (role: "admin" | "employee") => {
     setLoading(true);
     try {
-      const session = await loginAsDemo(role, specificNip);
+      const session = await loginAsDemo(role);
       toast.success(
-        `Masuk sebagai demo ${role === "admin" ? "HR Admin" : "Karyawan"}: ${session.user.name}`
+        `Masuk sebagai demo ${role === "admin" ? "Admin" : "Member"}: ${session.user.name}`
       );
       if (session.user.role === "admin") {
         await navigate({ to: "/admin" });
       } else {
         await navigate({ to: "/dashboard" });
       }
-    } catch (err: any) {
+    } catch {
       toast.error("Gagal melakukan demo login.");
     } finally {
       setLoading(false);
@@ -83,10 +73,10 @@ function LoginPage() {
           <BrandMark />
         </div>
         <h2 className="text-2xl font-bold tracking-tight text-foreground">
-          Mrhands Lab App Demo
+          Mrhands Lab App Starter
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Sistem Presensi Mandiri, Monitoring Tim Real-time & Manajemen Karyawan.
+          Starter template bersih berbasis TanStack Start, Tailwind CSS v4, dan SQLite.
         </p>
       </div>
 
@@ -97,11 +87,11 @@ function LoginPage() {
             <div className="flex items-center gap-2">
               <Sparkles className="size-4 text-primary" />
               <CardTitle className="text-sm font-semibold text-primary">
-                Akses Demo 1-Klik (Siap Pakai & Deploy)
+                Akses Demo 1-Klik (Siap Pakai & Uji Coba)
               </CardTitle>
             </div>
             <CardDescription className="text-xs">
-              Pilih peran di bawah ini untuk langsung menjelajahi seluruh fitur tanpa perlu mengisi form:
+              Pilih peran di bawah ini untuk langsung masuk tanpa mengisi formulir:
             </CardDescription>
           </CardHeader>
           <CardContent className="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -117,9 +107,9 @@ function LoginPage() {
                 <ShieldCheck className="size-4" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-xs leading-none">Login HR Admin</span>
+                <span className="font-semibold text-xs leading-none">Login Administrator</span>
                 <span className="text-[10px] text-primary-foreground/80 mt-1">
-                  Dr. Hendra Gunawan (Manajemen)
+                  admin (Akses Penuh Admin)
                 </span>
               </div>
             </Button>
@@ -129,16 +119,16 @@ function LoginPage() {
               variant="outline"
               size="sm"
               disabled={loading}
-              onClick={() => handleQuickDemo("employee", "199003152015021002")}
+              onClick={() => handleQuickDemo("employee")}
               className="gap-2 justify-start h-auto py-2.5 px-3 text-left border-border bg-card hover:bg-accent"
             >
               <div className="size-7 rounded-md bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
                 <User className="size-4" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-xs leading-none">Login Karyawan</span>
+                <span className="font-semibold text-xs leading-none">Login Member</span>
                 <span className="text-[10px] text-muted-foreground mt-1">
-                  Budi Santoso (Lead Engineer)
+                  member (Portal Pengguna)
                 </span>
               </div>
             </Button>
@@ -150,21 +140,21 @@ function LoginPage() {
           <CardHeader className="space-y-1">
             <CardTitle className="text-lg">Masuk dengan Akun</CardTitle>
             <CardDescription className="text-xs">
-              Gunakan NIP pegawai atau alamat email perusahaan Anda
+              Gunakan username atau alamat email akun Anda
             </CardDescription>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={handleManualLogin} className="space-y-4">
               <div className="space-y-1.5">
-                <Label htmlFor="nip" className="text-xs">
-                  NIP Pegawai / Email
+                <Label htmlFor="username" className="text-xs">
+                  Username / Email
                 </Label>
                 <Input
-                  id="nip"
-                  placeholder="Contoh: 199003152015021002"
-                  value={nip}
-                  onChange={(e) => setNip(e.target.value)}
+                  id="username"
+                  placeholder="admin atau member"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   disabled={loading}
                   required
                 />
@@ -175,12 +165,12 @@ function LoginPage() {
                   <Label htmlFor="pin" className="text-xs">
                     PIN / Password
                   </Label>
-                  <span className="text-[11px] text-muted-foreground">Default: 123456 / 000000</span>
+                  <span className="text-[11px] text-muted-foreground">Default: 123456</span>
                 </div>
                 <Input
                   id="pin"
                   type="password"
-                  placeholder="Masukkan 6 digit PIN Anda"
+                  placeholder="Masukkan PIN demo (123456)"
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
                   disabled={loading}
@@ -194,10 +184,7 @@ function LoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6 pt-4 border-t text-center text-xs text-muted-foreground flex items-center justify-between">
-              <Link to="/transparency" className="hover:text-foreground underline">
-                Lihat Direktori Karyawan
-              </Link>
+            <div className="mt-6 pt-4 border-t text-center text-xs text-muted-foreground">
               <Link to="/" className="hover:text-foreground">
                 Kembali ke Beranda
               </Link>
