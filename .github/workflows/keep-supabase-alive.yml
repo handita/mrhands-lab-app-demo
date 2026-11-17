@@ -1,0 +1,32 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Berjalan otomatis setiap hari Senin dan Kamis pukul 00:00 UTC
+    - cron: '0 0 * * 1,4'
+  workflow_dispatch: # Mengizinkan Anda menekan tombol "Run workflow" secara manual di GitHub
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Ping Supabase Database
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
+            echo "Error: SUPABASE_URL atau SUPABASE_KEY belum diatur di GitHub Secrets!"
+            exit 1
+          fi
+
+          echo "Mengirim ping ke Supabase untuk mencegah suspend..."
+          
+          # Melakukan request GET sangat ringan ke tabel 'users'
+          curl -s -o /dev/null -w "%{http_code}" -X GET "$SUPABASE_URL/rest/v1/users?select=id&limit=1" \
+               -H "apikey: $SUPABASE_KEY" \
+               -H "Authorization: Bearer $SUPABASE_KEY"
+               
+          echo ""
+          echo "Ping berhasil dieksekusi!"
